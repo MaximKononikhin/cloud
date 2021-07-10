@@ -1,0 +1,79 @@
+const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    mode: 'development',
+    entry: './src/index.tsx',
+    output: {
+        filename: '[name].[contenthash].js',
+        path: path.resolve(__dirname, 'dist'),
+        clean: true,
+    },
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name(module) {
+                        // получает имя, то есть node_modules/packageName/not/this/part.js
+                        // или node_modules/packageName
+                        const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            
+                        // имена npm-пакетов можно, не опасаясь проблем, использовать 
+                        // в URL, но некоторые серверы не любят символы наподобие @
+                        return `npm.${packageName.replace('@', '')}`;
+                    },
+                },
+            },
+        },
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+        alias: {
+            'react-dom$': 'react-dom/profiling',
+            'scheduler/tracing': 'scheduler/tracing-profiling',
+          }
+      
+    },
+    plugins: [
+        new HTMLWebpackPlugin({
+            template: path.join(__dirname, 'src', 'index.html'),
+            title: 'Cloud'
+        })
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_mobules/,
+                use: ['babel-loader'],
+            },
+            {
+                test: /\.(ts|tsx)$/,
+                exclude: /node_mobules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-react', '@babel/preset-typescript']
+                    }
+                }
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                type: 'asset/resource',
+            },
+        ]
+    }
+};

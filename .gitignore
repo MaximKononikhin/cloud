@@ -4,6 +4,9 @@ server/node_modules
 .idea
 # dependencies
 client/node_modules
+client/dist
+client/package-lock.json
 
 server/files
 server/static
+server/package-lock.json
