@@ -10,6 +10,7 @@ module.exports = {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
+        publicPath: '/'
     },
     optimization: {
         runtimeChunk: 'single',
@@ -38,6 +39,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
+        historyApiFallback: true,
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -71,6 +73,13 @@ module.exports = {
                     }
                 }
             },
+            {
+                test: /\.css$/,
+                use: [
+                  'style-loader',
+                  'css-loader',
+                ],
+              },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/,
                 type: 'asset/resource',

@@ -3,14 +3,12 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { jsx, css } from '@emotion/react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import './index.css';
 
 
 const Main = React.lazy(() => import('./pages/Main'));
 const Catalog = React.lazy(() => import('./pages/Catalog'));
 
-const style = css`
-  color: hotpink;
-`
 
 
 
@@ -22,7 +20,7 @@ const App: React.FC = () => {
             <Router>
                 <Switch>
                     <Route exact path="/" component={Main}/>
-                    <Route path="/catalog" component={Catalog} />
+                    <Route exact path="/catalog" component={Catalog} />
                 </Switch>
             </Router>
         </Suspense>
