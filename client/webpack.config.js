@@ -1,8 +1,10 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin'); 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: './src/index.tsx',
     output: {
         filename: '[name].[contenthash].js',
@@ -24,12 +26,14 @@ module.exports = {
                         const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
             
                         // имена npm-пакетов можно, не опасаясь проблем, использовать 
-                        // в URL, но некоторые серверы не любят символы наподобие @
+                        // в URL
                         return `npm.${packageName.replace('@', '')}`;
                     },
                 },
             },
         },
+        minimize: true,
+        minimizer: [new UglifyJsPlugin()],
     },
     devtool: 'inline-source-map',
     devServer: {
@@ -47,7 +51,8 @@ module.exports = {
         new HTMLWebpackPlugin({
             template: path.join(__dirname, 'src', 'index.html'),
             title: 'Cloud'
-        })
+        }),
+        new BundleAnalyzerPlugin(),
     ],
     module: {
         rules: [

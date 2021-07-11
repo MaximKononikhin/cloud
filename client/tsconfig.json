@@ -2,8 +2,9 @@
     "compilerOptions": {
         "outDir": "./dist",
         "noImplicitAny": true,
-        "module": "es6",
+        "module": "commonjs",
         "target": "es5",
+        "lib": ["ES2015", "dom"],
         "jsx": "react-jsx",
         "jsxImportSource": "@emotion/react",
         "allowJs": true,
@@ -13,4 +14,4 @@
         "typeRoots" : ["node_modules/@types", "./src/types"],
         "types": ["@emotion/react/types/css-prop"],
     }
-}, "index.d.ts", "react-app-env.d.ts"
+}
