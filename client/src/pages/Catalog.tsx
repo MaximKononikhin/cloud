@@ -1,11 +1,13 @@
-import React from 'react'
-import kotik from '../assets/images/kotik.jpg';
+import React from 'react';
+
+import MainLayout from '../modules/MainLayout/components';
 
 const Catalog = () => {
   return (
-    <div>
-      <img src={kotik} alt="" />
-    </div>
+		<MainLayout>
+			<div>
+			</div>
+		</MainLayout>
   )
 }
 
