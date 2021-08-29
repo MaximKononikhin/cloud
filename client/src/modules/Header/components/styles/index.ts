@@ -36,5 +36,6 @@ export const linkStyles = `
 
 export const logoLink = `
     font-weight: bold;
-    ${linkStyles}
+    display: flex;
+    align-items: center;
 `;

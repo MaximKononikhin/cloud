@@ -9,18 +9,19 @@ type IProps = {
     value: string,
     label: string,
     onChange: (e: string | React.ChangeEvent<any>) => void,
-    onBlur: (e: any) => void,
-    ownStyles: string,
+    onBlur?: (e: any) => void,
+    ownStyles?: string,
+    error?: string
 }
 
 const Input: React.FC<IProps> = ({
-    name, type, value, onBlur, onChange, label
+    name, type, value, onBlur, onChange, label, ownStyles, error
 }) => {
     return (
-        <label css={css(styles.inputStyles)}>
-            <span>
+        <label css={css(styles.inputStyles, ownStyles ? ownStyles : '')}>
+            <p>
                 {label}
-            </span>
+            </p>
             <input 
                 type={type} 
                 name={name}
@@ -28,6 +29,7 @@ const Input: React.FC<IProps> = ({
                 onBlur={onBlur}
                 value={value}
             />
+            <span css={css(styles.errorStyle)}>{error}</span>
         </label>
     )
 }

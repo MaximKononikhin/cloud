@@ -25,7 +25,7 @@ authRouter.post('/registration',
         return res.status(400).json({ message:'Registration error' });
       }
 
-      const { email, password } = req.body;
+      const { email, password, firstName, secondName } = req.body;
 
       const candidate = await UserModel.findOne({ email });
 
@@ -34,10 +34,25 @@ authRouter.post('/registration',
       }
 
       const hashPassword = await hash(password, 8);
-      const user = new UserModel({ email, password: hashPassword });
+      const user = new UserModel({ email, password: hashPassword, firstName, secondName });
       await user.save();
       await fileService.createDir(new FileModel({ user: user.id, name: ''}))
-      return res.json({ message: 'User was created'});
+      
+      const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY as string, { expiresIn: '1h'});
+
+      res.cookie('authToken', token, { httpOnly: true });
+      return res
+        .json({
+          user: {
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+            secondName: user.secondName,
+            diskSpace: user.diskSpace,
+            usedSpace: user.usedSpace,
+            avatar: user.avatar
+          }
+        })
       
     } catch(e) {
       console.log(e);
@@ -65,16 +80,20 @@ authRouter.post('/login', async (req: Request, res: Response) => {
 
       const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY as string, { expiresIn: '1h'});
 
-      return res.json({
-        token,
-        user: {
-          id: user.id,
-          email: user.email,
-          diskSpace: user.diskSpace,
-          usedSpace: user.usedSpace,
-          avatar: user.avatar
-        }
-      })
+      res.cookie('authToken', token, { httpOnly: true });
+
+      return res
+        .json({
+          user: {
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+            secondName: user.secondName,
+            diskSpace: user.diskSpace,
+            usedSpace: user.usedSpace,
+            avatar: user.avatar
+          }
+        })
 
     } catch(e) {
       console.log(e);
@@ -83,25 +102,35 @@ authRouter.post('/login', async (req: Request, res: Response) => {
   }
 );
 
+authRouter.get('/logout', authMiddleware, async (req, res) => {
+    try {
+        res.clearCookie('authToken');
+        return res.json({ message: 'User was logout'});
+    } catch (e) {
+        console.log(e);
+        res.send({ message: 'Server error '});
+    }
+
+});
+
 authRouter.get('/auth', authMiddleware, async (req: any, res: any) => {
-  try {
-    const user = await UserModel.findOne({ _id: req.user.id}) as IUser
+    try {
+      const user = await UserModel.findOne({ _id: req.user.id}) as IUser
 
-    const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY as string, { expiresIn: '1h'});
-
-    return res.json({
-      token,
-      user: {
-        id: user.id,
-        email: user.email,
-        diskSpace: user.diskSpace,
-        usedSpace: user.usedSpace,
-        avatar: user.avatar
-      }
-    })
-  } catch(e) {
-    console.log(e);
-    res.send({ message: 'Server error '});
+      return res.json({
+        user: {
+          id: user.id,
+          email: user.email,            
+          firstName: user.firstName,
+          secondName: user.secondName,
+          diskSpace: user.diskSpace,
+          usedSpace: user.usedSpace,
+          avatar: user.avatar
+        }
+      })
+    } catch(e) {
+      console.log(e);
+      res.send({ message: 'Server error '});
+    }
   }
-}
 );

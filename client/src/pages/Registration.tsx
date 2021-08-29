@@ -7,13 +7,14 @@ import Input from '../modules/Input/components';
 import Button from '../modules/Button/components';
 import { css } from '@emotion/react';
 import { useHistory } from 'react-router-dom';
+import { IRegistration } from '../common/types';
 import { useAuth } from '../context/AuthContext';
-import { ILogin } from '../common/types';
-
 
 const validationSchema = yup.object().shape({
     email: yup.string().email('Введите валидный email').required('Введите email'),
-    password: yup.string().required('Введите пароль')
+    password: yup.string().matches(/^[A-Za-z][A-Za-z0-9]*$/, 'Только латиница и цифры').min(8, 'Минимум 8 символов').required('Введите пароль'),
+    firstName: yup.string().required('Введите имя'),
+    secondName: yup.string().required('Введите фамилию'),
 });
 
 const wrapperStyles = `
@@ -37,26 +38,30 @@ const headingStyle = `
     margin-bottom: 53px;
 `;
 
-const Entrance: React.FC = () => {
+const Registration: React.FC = () => {
     const history = useHistory();
-    const { login } = useAuth();
-    
-    const onSubmit = async ({email, password}: ILogin) => {
-        const response = await login({
-            email: email, 
-            password: password
+    const { register } = useAuth();
+
+    const onSubmit = async ({ email, firstName, secondName, password }: IRegistration) => {
+        const response = await register({
+            email, 
+            password,
+            firstName,
+            secondName
         });
 
+        
         history.push('/');
-    };
-
+    }
     return (
-        <MainLayout maxHeight={470}>
+        <MainLayout>
             <div css={css(wrapperStyles)}>
-                <h2 css={css(headingStyle)}>Войти</h2>
+                <h2 css={css(headingStyle)}>Зарегистрироваться</h2>
                 <Formik
                     initialValues={{
                         email: '',
+                        firstName: '',
+                        secondName: '',
                         password: ''
                     }}
                     onSubmit={onSubmit}
@@ -65,6 +70,24 @@ const Entrance: React.FC = () => {
                 >
                 {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => (
                     <form onSubmit={handleSubmit}>
+                        <Input 
+                            type="text" 
+                            name="firstName" 
+                            label="Имя" 
+                            value={values.firstName} 
+                            onChange={handleChange} 
+                            onBlur={handleBlur} 
+                            error={touched.firstName && errors.firstName}
+                        />
+                        <Input 
+                            type="text" 
+                            name="secondName" 
+                            label="Фамилия" 
+                            value={values.secondName} 
+                            onChange={handleChange} 
+                            onBlur={handleBlur} 
+                            error={touched.secondName && errors.secondName}
+                        />
                         <Input 
                             type="text" 
                             name="email" 
@@ -88,7 +111,7 @@ const Entrance: React.FC = () => {
                             type="submit"
                             ownStyles="margin: 0 auto; display: block;"
                         >
-                            Продолжить
+                            Зарегистрироваться
                         </Button>
                     </form>
                 )}
@@ -98,4 +121,4 @@ const Entrance: React.FC = () => {
     )
 }
 
-export default Entrance
+export default Registration

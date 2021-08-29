@@ -1,6 +1,7 @@
 import express, {Application} from 'express';
 import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
+import cookieParser from 'cookie-parser';
 require('dotenv').config();
 
 import { authRouter } from './routes/auth.routes';
@@ -13,6 +14,7 @@ const PORT = process.env.PORT;
 app.use(fileUpload({}));
 app.use(corsMiddleware);
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static(__dirname + '/static'));
 app.use('/api/auth', authRouter);
 app.use('/api/files', fileRouter);

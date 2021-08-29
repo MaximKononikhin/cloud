@@ -5,7 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.tsx',
+    entry: ['regenerator-runtime/runtime', './src/index.tsx'],
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),

@@ -1,15 +1,25 @@
 import React from 'react';
+import { css } from '@emotion/react';
 
 import Header from '../../Header/components';
 import bg from '../../../assets/images/background.png';
-import { css } from '@emotion/react';
+import * as styles from './styles';
 
-const MainLayout: React.FC = ({children}) => {
+type IProps = {
+    children: React.ReactNode,
+    maxHeight?: number,
+}
+
+const MainLayout: React.FC<IProps> = ({ children, maxHeight = 641 }) => {
     return (
         <>
-            <img src={bg} css={css('width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: -1;')} />
+            <img src={bg} css={css(styles.bgStyles)} />
             <Header />
-            {children}
+            <main css={css(styles.mainWrapper)}>
+                <section css={css(`max-height: ${maxHeight}px;`)}>
+                    {children}
+                </section>
+            </main>
         </>
     )
 }
