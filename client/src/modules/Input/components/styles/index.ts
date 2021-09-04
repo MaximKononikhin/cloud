@@ -4,34 +4,45 @@ export const inputStyles = `
     position: relative;
 
     margin: 0;
-    padding-bottom: 30px;
+    padding-bottom: 27px;
+
 
     input {
-        padding: 12px 22px;
+        padding: 10px 19px;
 
-        border: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         outline: none;
-        background: #FFFFFF;
-        box-shadow: inset 0px 1px 10px #C4C4C4;
-        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        font-size: 16px;
+        line-height: 20px;
+        color: #FFFFFF;
 
         :focus {
-            box-shadow: 0px 3px 9px rgba(117, 221, 164, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
     }
     
     p {
         margin: 0;
-        margin-bottom: 9px;
-        padding-left: 12px;
+        margin-bottom: 6px;
+        padding-left: 10px;
+
+        font-size: 13px;
+        line-height: 17px;
+        color: #FFFFFF;
+    
+        opacity: 0.5;
     }
 `;
 
 export const errorStyle = `
-    color: red;
     margin: 0;
     position: absolute;
     bottom: 5px;
     left: 12px;
     font-size: 12px;
+    line-height: 15px;
+    font-weight: 600;
+    color: #E13A3A;
 `

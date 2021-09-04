@@ -1,12 +1,3 @@
-export const bgStyles = `
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-`;
-
 export const mainWrapper = `
     position: relative;
 
@@ -14,18 +5,17 @@ export const mainWrapper = `
     min-height: calc(100vh - 50px);
     display: flex;
     justify-content: center;
-    padding-top: 169px;
+    padding-top: 102px;
 
     section {
-        min-width: 615px;
+        min-width: 770px;
         max-width: 1150px;
 
-        padding: 60px 97px;
+        padding: 90px 100px;
 
-        background-color: #fff;
-
-        border: 1px solid #C4C4C4;
-        box-shadow: 0px 45px 88px rgba(117, 221, 164, 0.5);
-        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(229, 229, 229, 0.25);
+        backdrop-filter: blur(7px);
+        border-radius: 30px;
     }
 `;

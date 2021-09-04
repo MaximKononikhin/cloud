@@ -30,7 +30,7 @@ class AuthController {
         await user.save();
         await fileService.createDir(new FileModel({ user: user.id, name: ''}))
         
-        const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY as string, { expiresIn: '1h'});
+        const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY as string);
   
         res.cookie('authToken', token, { httpOnly: true });
         return res

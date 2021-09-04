@@ -16,6 +16,12 @@
   font-weight: 600;
 }
 
+@font-face {
+  font-family: "Minsk";
+  src: url('./assets/fonts/Minsk/Minsk-regular.otf') format('opentype');
+  font-weight: 400;
+}
+
 * {
   box-sizing: border-box;
 
@@ -31,5 +37,5 @@ body {
   min-height: 100vh;
   padding: 0;
   margin: 0;
-  background: linear-gradient(287.36deg, #89F7FE 0.29%, #66A6FF 100%);
+  background-image: url(./assets/images/background.png);
 }

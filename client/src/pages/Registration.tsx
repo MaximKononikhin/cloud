@@ -6,9 +6,9 @@ import MainLayout from '../modules/MainLayout/components';
 import Input from '../modules/Input/components';
 import Button from '../modules/Button/components';
 import { css } from '@emotion/react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { IRegistration } from '../common/types';
-import { useAuth } from '../context/AuthContext';
+import { useSession } from '../context/SessionContext';
 
 const validationSchema = yup.object().shape({
     email: yup.string().email('Введите валидный email').required('Введите email'),
@@ -24,37 +24,53 @@ const wrapperStyles = `
 
     form {
         width: 100%;
+
+        display: flex;
+        flex-direction: column;
     }
 `;
 
 const headingStyle = `
+    font-family: Minsk;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
-
-    color: #636363;
+    font-size: 40px;
+    line-height: 40px;
+    color: #FFFFFF;
 
     margin: 0;
-    margin-bottom: 53px;
+    margin-bottom: 66px;
+`;
+
+const linkStyle = `
+    display: block;
+    font-size: 13px;
+    line-height: 20px;
+    color: #FFFFFF;
+    margin: 0 auto;
+
+    text-decoration: none;
+
+    :hover {
+        text-decoration: underline;
+    }
 `;
 
 const Registration: React.FC = () => {
     const history = useHistory();
-    const { register } = useAuth();
+    const { register } = useSession();
 
     const onSubmit = async ({ email, firstName, secondName, password }: IRegistration) => {
-        const response = await register({
+        await register({
             email, 
             password,
             firstName,
             secondName
         });
 
-        
         history.push('/');
     }
     return (
-        <MainLayout>
+        <MainLayout maxHeight={797}>
             <div css={css(wrapperStyles)}>
                 <h2 css={css(headingStyle)}>Зарегистрироваться</h2>
                 <Formik
@@ -109,10 +125,13 @@ const Registration: React.FC = () => {
                         <Button
                             disabled={!isValid && !dirty}
                             type="submit"
-                            ownStyles="margin: 0 auto; display: block;"
+                            ownStyles="margin: 30px auto 25px; display: block;"
                         >
                             Зарегистрироваться
                         </Button>
+                        <Link to="/login" css={css(linkStyle)}>
+                            Войти
+                        </Link>
                     </form>
                 )}
                 </Formik>

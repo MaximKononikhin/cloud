@@ -1,9 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import Header from '../../Header/components';
-import bg from '../../../assets/images/background.png';
 import * as styles from './styles';
+import Header from '../../Header/components';
 
 type IProps = {
     children: React.ReactNode,
@@ -12,15 +11,12 @@ type IProps = {
 
 const MainLayout: React.FC<IProps> = ({ children, maxHeight = 641 }) => {
     return (
-        <>
-            <img src={bg} css={css(styles.bgStyles)} />
-            <Header />
-            <main css={css(styles.mainWrapper)}>
-                <section css={css(`max-height: ${maxHeight}px;`)}>
-                    {children}
-                </section>
-            </main>
-        </>
+        <main css={css(styles.mainWrapper)}>
+            <section css={css(`max-height: ${maxHeight}px; position: relative;`)}>
+                <Header /> 
+                {children}
+            </section>
+        </main>
     )
 }
 

@@ -28,8 +28,13 @@ const Input: React.FC<IProps> = ({
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
+                css={css(error ? 'border: 1px solid #E13A3A!important' : '')}
             />
-            <span css={css(styles.errorStyle)}>{error}</span>
+            {error && 
+                (
+                    <span css={css(styles.errorStyle)}>{error}</span>
+                )
+            }
         </label>
     )
 }

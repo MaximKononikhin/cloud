@@ -6,8 +6,8 @@ import MainLayout from '../modules/MainLayout/components';
 import Input from '../modules/Input/components';
 import Button from '../modules/Button/components';
 import { css } from '@emotion/react';
-import { useHistory } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Link, useHistory } from 'react-router-dom';
+import { useSession } from '../context/SessionContext';
 import { ILogin } from '../common/types';
 
 
@@ -23,26 +23,42 @@ const wrapperStyles = `
 
     form {
         width: 100%;
+        
+        display: flex;
+        flex-direction: column;
     }
 `;
 
 const headingStyle = `
+    font-family: Minsk;
     font-weight: 600;
-    font-size: 30px;
-    line-height: 38px;
-
-    color: #636363;
+    font-size: 40px;
+    line-height: 40px;
+    color: #FFFFFF;
 
     margin: 0;
-    margin-bottom: 53px;
+    margin-bottom: 66px;
+`;
+
+const linkStyle = `
+    display: block;
+    font-size: 13px;
+    line-height: 20px;
+    color: #FFFFFF;
+    margin: 0 auto;
+    text-decoration: none;
+
+    :hover {
+        text-decoration: underline;
+    }
 `;
 
 const Entrance: React.FC = () => {
     const history = useHistory();
-    const { login } = useAuth();
+    const { login } = useSession();
     
     const onSubmit = async ({email, password}: ILogin) => {
-        const response = await login({
+        await login({
             email: email, 
             password: password
         });
@@ -51,7 +67,7 @@ const Entrance: React.FC = () => {
     };
 
     return (
-        <MainLayout maxHeight={470}>
+        <MainLayout maxHeight={585}>
             <div css={css(wrapperStyles)}>
                 <h2 css={css(headingStyle)}>Войти</h2>
                 <Formik
@@ -86,10 +102,13 @@ const Entrance: React.FC = () => {
                         <Button
                             disabled={!isValid && !dirty}
                             type="submit"
-                            ownStyles="margin: 0 auto; display: block;"
+                            ownStyles="margin: 30px auto 25px; display: block;"
                         >
                             Продолжить
                         </Button>
+                        <Link to="/registration" css={css(linkStyle)}>
+                            Зарегистрироваться
+                        </Link>
                     </form>
                 )}
                 </Formik>
