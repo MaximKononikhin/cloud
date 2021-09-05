@@ -17,6 +17,7 @@ export type IUser = {
         diskSpace: number;
         usedSpace: number;
         avatar: string;
+        files: any[],
     }
 }
 
