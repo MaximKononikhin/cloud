@@ -8,6 +8,7 @@ export interface IUser extends Document {
   diskSpace: number;
   usedSpace: number;
   avatar: string;
+  files: any[];
 }
 
 const UserShema = new Schema({

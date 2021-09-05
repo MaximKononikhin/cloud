@@ -10,7 +10,6 @@ import { fileService } from "../services/fileService";
 class FileController {
   async createDir(req: any, res: Response) {
     try {
-      console.log(req.body);
       const { name, type, parent } = req.body;
       const file = new FileModel({name, type, parent, user: req.user.id});
       const parentFile = await FileModel.findOne({ _id: parent});
@@ -157,6 +156,9 @@ class FileController {
       const file = req.files.file;
       const user = await UserModel.findById(req.user.id);
       const avatarName = `${v4()}.jpg`;
+      if (user && user.avatar.length > 0) {
+        fs.unlinkSync(`${process.env.STATIC_PATH}/${user.avatar}`);
+      }
       file.mv(`${process.env.STATIC_PATH}/${avatarName}`);
       user!.avatar = avatarName;
       await user?.save();

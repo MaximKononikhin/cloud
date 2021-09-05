@@ -42,7 +42,8 @@ class AuthController {
               secondName: user.secondName,
               diskSpace: user.diskSpace,
               usedSpace: user.usedSpace,
-              avatar: user.avatar
+              avatar: user.avatar,
+              files: user.files,
             }
           })
         
@@ -81,7 +82,8 @@ class AuthController {
                   secondName: user.secondName,
                   diskSpace: user.diskSpace,
                   usedSpace: user.usedSpace,
-                  avatar: user.avatar
+                  avatar: user.avatar,
+                  files: user.files,
                 }
               })
       
@@ -113,7 +115,8 @@ class AuthController {
                 secondName: user.secondName,
                 diskSpace: user.diskSpace,
                 usedSpace: user.usedSpace,
-                avatar: user.avatar
+                avatar: user.avatar,
+                files: user.files,
               }
             })
         } catch(e) {
