@@ -21,6 +21,18 @@ export type IUser = {
     }
 }
 
+export type IFile = {
+    _id: string;
+    name: string;
+    type: 'dir' | 'file';
+    accessLink: string;
+    size: number;
+    path: string;
+    user: string;
+    parent: string;
+    children: string[];
+}
+
 export type IRegistration = {
     email: string
     firstName: string

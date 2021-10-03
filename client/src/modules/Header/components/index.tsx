@@ -2,13 +2,12 @@ import React, { ReactNode, useRef, useState } from 'react'
 import { jsx, css } from '@emotion/react'
 
 import * as styles from './styles';
-import logo from '../../../assets/icons/logo.svg';
 import profileIcon from '../../../assets/icons/profileIcon.svg';
 import carret from '../../../assets/icons/carret.svg';
-import { useSession } from '../../../context/SessionContext';
+import { useSession } from '../../../common/services/context/SessionContext';
 import ModalService from '../../../common/services/ModalService';
 import useClickOutside from '../../../common/services/hooks/useClickOutside';
-import SettingsModal from '../../SettingsModal/components';
+import SettingsModal from './SettingsModal';
 import { BASE_URL } from '../../../common/constants';
 
 const Header: React.FC = () => {

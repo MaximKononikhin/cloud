@@ -8,7 +8,6 @@ export interface IUser extends Document {
   diskSpace: number;
   usedSpace: number;
   avatar: string;
-  files: any[];
 }
 
 const UserShema = new Schema({
@@ -19,7 +18,6 @@ const UserShema = new Schema({
   diskSpace: { type: Number, default: 1024 * 3 * 10 },
   usedSpace: { type: Number, default: 0 },
   avatar: { type: String },
-  files: [{ type: Schema.Types.ObjectId, ref: 'File' }],
 })
 
 export const UserModel = model<IUser>('User', UserShema);

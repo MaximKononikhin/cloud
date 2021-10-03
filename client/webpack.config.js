@@ -12,30 +12,30 @@ module.exports = {
         clean: true,
         publicPath: '/'
     },
-    optimization: {
-        runtimeChunk: 'single',
-        splitChunks: {
-            chunks: 'all',
-            maxInitialRequests: Infinity,
-            minSize: 0,
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name(module) {
-                        // получает имя, то есть node_modules/packageName/not/this/part.js
-                        // или node_modules/packageName
-                        const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+    // optimization: {
+    //     runtimeChunk: 'single',
+    //     splitChunks: {
+    //         chunks: 'all',
+    //         maxInitialRequests: Infinity,
+    //         minSize: 0,
+    //         cacheGroups: {
+    //             vendor: {
+    //                 test: /[\\/]node_modules[\\/]/,
+    //                 name(module) {
+    //                     // получает имя, то есть node_modules/packageName/not/this/part.js
+    //                     // или node_modules/packageName
+    //                     const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
             
-                        // имена npm-пакетов можно, не опасаясь проблем, использовать 
-                        // в URL
-                        return `npm.${packageName.replace('@', '')}`;
-                    },
-                },
-            },
-        },
-        minimize: true,
-        minimizer: [new UglifyJsPlugin()],
-    },
+    //                     // имена npm-пакетов можно, не опасаясь проблем, использовать 
+    //                     // в URL
+    //                     return `npm.${packageName.replace('@', '')}`;
+    //                 },
+    //             },
+    //         },
+    //     },
+    //     minimize: true,
+    //     minimizer: [new UglifyJsPlugin()],
+    // },
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'dist'),

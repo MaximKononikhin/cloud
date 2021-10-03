@@ -3,12 +3,12 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import MainLayout from '../modules/MainLayout/components';
-import Input from '../modules/Input/components';
 import Button from '../modules/Button/components';
 import { css } from '@emotion/react';
 import { Link, useHistory } from 'react-router-dom';
 import { IRegistration } from '../common/types';
-import { useSession } from '../context/SessionContext';
+import { useSession } from '../common/services/context/SessionContext';
+import FormField from '../modules/FormField/components';
 
 const validationSchema = yup.object().shape({
     email: yup.string().email('Введите валидный email').required('Введите email'),
@@ -86,7 +86,7 @@ const Registration: React.FC = () => {
                 >
                 {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => (
                     <form onSubmit={handleSubmit}>
-                        <Input 
+                        <FormField 
                             type="text" 
                             name="firstName" 
                             label="Имя" 
@@ -95,7 +95,7 @@ const Registration: React.FC = () => {
                             onBlur={handleBlur} 
                             error={touched.firstName && errors.firstName}
                         />
-                        <Input 
+                        <FormField 
                             type="text" 
                             name="secondName" 
                             label="Фамилия" 
@@ -104,7 +104,7 @@ const Registration: React.FC = () => {
                             onBlur={handleBlur} 
                             error={touched.secondName && errors.secondName}
                         />
-                        <Input 
+                        <FormField 
                             type="text" 
                             name="email" 
                             label="E-mail" 
@@ -113,7 +113,7 @@ const Registration: React.FC = () => {
                             onBlur={handleBlur} 
                             error={touched.email && errors.email}
                         />
-                        <Input 
+                        <FormField 
                             type="password" 
                             name="password" 
                             label="Пароль" 

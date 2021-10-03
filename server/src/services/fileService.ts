@@ -4,17 +4,18 @@ require('dotenv').config();
 
 class FileService {
   createDir(file: IFile) {
-    const filePath = `${process.env.FILE_PATH as string}/${file.user}//${file.path}`
+    const filePath = `${process.env.FILE_PATH as string}\\${file.user}\\${file.path}`;
     return new Promise((resolve, reject) => {
       try {
         if (!fs.existsSync(filePath)) {
           fs.mkdirSync(filePath);
-          return resolve({ message: 'File was crated!' });
+          return resolve({ message: 'File was created!' });
         } else {
           return reject({ message: 'File already exist!' });
         }
 
       } catch (e) {
+        console.log(e)
         return reject({ message: 'File error' });
       }
     })

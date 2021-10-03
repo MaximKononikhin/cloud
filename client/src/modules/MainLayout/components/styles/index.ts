@@ -9,7 +9,7 @@ export const mainWrapper = `
 
     section {
         min-width: 770px;
-        max-width: 1150px;
+        max-width: 1294px;
 
         padding: 90px 100px;
 

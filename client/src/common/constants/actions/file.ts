@@ -1,0 +1,1 @@
+export const FETCH_FILES_LIST = 'FILE/FETCH_FILES_LIST';

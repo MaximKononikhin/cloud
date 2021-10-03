@@ -30,7 +30,7 @@ class AuthController {
         await user.save();
         await fileService.createDir(new FileModel({ user: user.id, name: ''}))
         
-        const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY as string);
+        const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY as string, {expiresIn: '0'});
   
         res.cookie('authToken', token, { httpOnly: true });
         return res
@@ -43,7 +43,6 @@ class AuthController {
               diskSpace: user.diskSpace,
               usedSpace: user.usedSpace,
               avatar: user.avatar,
-              files: user.files,
             }
           })
         
@@ -83,7 +82,6 @@ class AuthController {
                   diskSpace: user.diskSpace,
                   usedSpace: user.usedSpace,
                   avatar: user.avatar,
-                  files: user.files,
                 }
               })
       
@@ -116,7 +114,6 @@ class AuthController {
                 diskSpace: user.diskSpace,
                 usedSpace: user.usedSpace,
                 avatar: user.avatar,
-                files: user.files,
               }
             })
         } catch(e) {

@@ -1,11 +1,11 @@
 import { AxiosPromise } from 'axios';
 import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react';
-import { IRegistration, IUser } from '../common/types';
-import { auth } from '../common/services/api/rest/auth/auth';
-import { login } from '../common/services/api/rest/auth/login';
-import { logout } from '../common/services/api/rest/auth/logout';
-import { register } from '../common/services/api/rest/auth/registration';
-import { uploadAvatar } from '../common/services/api/rest/files/avatar';
+import { IRegistration, IUser } from '../../types';
+import { auth } from '../api/rest/auth/auth';
+import { login } from '../api/rest/auth/login';
+import { logout } from '../api/rest/auth/logout';
+import { register } from '../api/rest/auth/registration';
+import { uploadAvatar } from '../api/rest/files/avatar';
 
 type ILogin = {
     email: string,

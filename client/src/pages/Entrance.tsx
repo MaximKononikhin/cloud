@@ -3,12 +3,12 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import MainLayout from '../modules/MainLayout/components';
-import Input from '../modules/Input/components';
 import Button from '../modules/Button/components';
 import { css } from '@emotion/react';
 import { Link, useHistory } from 'react-router-dom';
-import { useSession } from '../context/SessionContext';
+import { useSession } from '../common/services/context/SessionContext';
 import { ILogin } from '../common/types';
+import FormField from '../modules/FormField/components';
 
 
 const validationSchema = yup.object().shape({
@@ -81,7 +81,7 @@ const Entrance: React.FC = () => {
                 >
                 {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => (
                     <form onSubmit={handleSubmit}>
-                        <Input 
+                        <FormField 
                             type="text" 
                             name="email" 
                             label="E-mail" 
@@ -90,7 +90,7 @@ const Entrance: React.FC = () => {
                             onBlur={handleBlur} 
                             error={touched.email && errors.email}
                         />
-                        <Input 
+                        <FormField 
                             type="password" 
                             name="password" 
                             label="Пароль" 

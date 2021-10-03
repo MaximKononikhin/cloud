@@ -33,7 +33,7 @@ class FileController {
 
   async getFiles(req: any, res: Response) {
     try {
-      const {sort} = req.query;
+      const { sort } = req.query;
       let files;
       switch(sort) {
         case 'name':
@@ -45,7 +45,7 @@ class FileController {
         default:
           files = await FileModel.find({ user: req.user.id, parent: req.query.parent});
       }
-      return res.json({ files });
+      return res.json({ results: files, count: files.length });
     } catch (error) {
       return res.status(500).json({ message: "Can not get files"});
     }
@@ -144,7 +144,7 @@ class FileController {
       const searchName = req.query.search;
       let files = await FileModel.find({ user: req.user.id });
       files = files.filter(file => file.name.includes(searchName));
-      return res.json({files});
+      return res.json({ results: files, count: files.length });
     } catch (error) {
       console.log(error); 
       return res.status(400).json({ message: 'Search error' });
