@@ -3,4 +3,4 @@ import { IFile } from "../../../../types";
 import makeRequest from "../makeRequest";
 
 
-export const getFiles = (): AxiosPromise<IFile[]> =>  makeRequest({url: 'files', method: 'GET'});
+export const getFiles = (dirId?: string): AxiosPromise<IFile[]> =>  makeRequest({url: `files${dirId ? `?parent=${dirId}` : ''}`, method: 'GET'});

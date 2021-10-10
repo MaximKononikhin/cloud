@@ -8,10 +8,8 @@ export const file = `
     background: rgba(255, 255, 255, 0.1);
     border-radius: 25px;
     cursor: pointer;
-    margin-right: 30px;
-    margin-bottom: 30px;
 
-    :nth-child(6) {
+    :nth-of-type(6) {
         margin-right: 0;
     }
 `;
@@ -30,3 +28,11 @@ export const name = `
 
     color: #FFFFFF;
 `;
+
+export const btnStyles = `
+    outline: none;
+    border: none;
+    padding: 0;
+    background: unset;
+    cursor: pointer;
+`

@@ -32,6 +32,7 @@ const Header: React.FC = () => {
         </div>
     );
     
+    
     if (!user) return null;
 
     return (

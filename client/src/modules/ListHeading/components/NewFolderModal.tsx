@@ -1,6 +1,10 @@
 import { css } from '@emotion/react';
 import React, { useState } from 'react';
-import { createDir } from '../../../common/services/api/rest/files/createDir';
+import { useDispatch, useSelector } from 'react-redux';
+import { IFile } from '../../../common/types';
+import { IState } from '../../../store';
+import { addFileAction } from '../../../store/actions/file';
+import { getCurrentDir } from '../../../store/selectors/file';
 import Button from '../../Button/components';
 import Input from '../../Input/components';
 import Modal from '../../Modal';
@@ -12,15 +16,16 @@ type IProps = {
 }
 
 const NewFolderModal: React.FC<IProps> = ({ handleClose }) => {
+    const currentDir: IFile = useSelector<IState, any>((state) => getCurrentDir(state, {}));
     const [name, setName] = useState('');
-
+    const dispatch = useDispatch();
+    
     const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setName(evt.target.value)
     }
 
     const handleClickBtn = async () => {
-        const response = await createDir({name, type: 'dir'});
-        console.log(response);
+        addFileAction(name, 'dir', currentDir ?  currentDir._id : undefined)(dispatch);
         handleClose();
     }
 

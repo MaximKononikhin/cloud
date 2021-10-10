@@ -43,7 +43,7 @@ export const fetchGenericEntity = (entityName: string, state: any, payload: any,
     let itemMap = fromJS(data);
 
     if (shouldMerge) {
-        const currentItem = entities!.get(data.id.toString());
+        const currentItem = entities.get(data._id);
 
         if (currentItem) {
             itemMap = currentItem.mergeDeep(itemMap);
@@ -52,13 +52,26 @@ export const fetchGenericEntity = (entityName: string, state: any, payload: any,
 
     if (setKeys) {
         let keys = newState.get('keys');
-        keys = keys.push(data.id.toString());
+        keys = keys.push(data._id);
         newState = newState.set('keys', keys);
     }
     
-    entities = entities.set(data.id, itemMap);
-    
-    newState = newState.set(entityName, entities);
+    entities = entities.set(data._id, itemMap);
+    newState = newState.set(entityName, entities).set('count', newState.get('count') + 1);
 
     return newState;
 };
+
+export const deleteGenericEntity = (entityName: string, state: any, payload: any) => {
+    let newState = state;
+
+    let entities = newState.get(entityName);
+    entities = entities.delete(payload);
+
+    let keys: List<string> = newState.get('keys');
+    keys = keys.filter((key) => key !== payload);
+
+    newState = newState.set(entityName, entities).set('keys', keys).set('count', newState.get('count') - 1);
+
+    return newState;
+}

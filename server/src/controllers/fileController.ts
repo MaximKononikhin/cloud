@@ -156,7 +156,8 @@ class FileController {
       const file = req.files.file;
       const user = await UserModel.findById(req.user.id);
       const avatarName = `${v4()}.jpg`;
-      if (user && user.avatar.length > 0) {
+      
+      if (user && user.avatar) {
         fs.unlinkSync(`${process.env.STATIC_PATH}/${user.avatar}`);
       }
       file.mv(`${process.env.STATIC_PATH}/${avatarName}`);

@@ -8,4 +8,4 @@ type IData = {
     parent?: string;
 }
 
-export const createDir = (data: IData): AxiosPromise<IFile> =>  makeRequest({url: 'files', method: 'POST', data});
+export const createFile = (data: IData): AxiosPromise<IFile> =>  makeRequest({url: 'files', method: 'POST', data});

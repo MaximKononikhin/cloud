@@ -9,6 +9,7 @@ export const foldername = `
     font-family: Minsk;
     font-weight: 600;
     font-size: 40px;
+    min-height: 40px;
     line-height: 40px;
     color: #FFFFFF;
 
@@ -67,6 +68,7 @@ export const btnWrapper = `
 `;
 
 export const btn = `
+    position: relative;
     width: 27px;
     height: 27px;
     display: flex;
@@ -78,4 +80,19 @@ export const btn = `
     background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     margin-right: 10px;
+    cursor: pointer;
+
+    img {
+        cursor: pointer;
+    }
+
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
 `;

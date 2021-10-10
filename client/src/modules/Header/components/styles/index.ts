@@ -48,7 +48,7 @@ export const modalStyles = `
         text-decoration: none;
         cursor: pointer;
 
-        &:first-child {
+        &:first-of-type {
             border-bottom: 1px solid #92A4D1;
             padding-bottom: 5px;
         }

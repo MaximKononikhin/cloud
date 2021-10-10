@@ -1,1 +1,5 @@
-export const FETCH_FILES_LIST = 'FILE/FETCH_FILES_LIST';
+export const SET_FILES_LIST = 'FILE/SET_FILES_LIST';
+export const ADD_FILE = 'FILE/ADD_FILE';
+export const DELETE_FILE = 'FILE/DELETE_FILE';
+export const PUSH_DIR_STACK = 'FILE/PUSH_DIR_STACK';
+export const POP_DIR_STACK = 'FILE/POP_DIR_STACK';

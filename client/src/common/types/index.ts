@@ -17,7 +17,6 @@ export type IUser = {
         diskSpace: number;
         usedSpace: number;
         avatar: string;
-        files: any[],
     }
 }
 
@@ -30,7 +29,7 @@ export type IFile = {
     path: string;
     user: string;
     parent: string;
-    children: string[];
+    children: any[];
 }
 
 export type IRegistration = {

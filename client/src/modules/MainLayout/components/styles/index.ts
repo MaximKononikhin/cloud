@@ -6,6 +6,7 @@ export const mainWrapper = `
     display: flex;
     justify-content: center;
     padding-top: 102px;
+    overflow: hidden;
 
     section {
         min-width: 770px;

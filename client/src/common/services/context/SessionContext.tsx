@@ -32,15 +32,17 @@ export const SessionProvider = ({ children }: {children: ReactNode}) => {
     
     useEffect(() => {
         (async () => {
-            try {
-                const response = await auth();
-                setUser(response.data);
-            } catch(e) {
-                console.log(e);
+            if (!user) {
+                try {
+                    const response = await auth();
+                    setUser(response.data);
+                } catch(e) {
+                    console.log(e);
+                }
+                setLoading(false);
             }
-            setLoading(false);
         })();
-    }, [])
+    }, [user])
 
     const loginUser = async (data: ILogin) => {
         const response = await login(data);

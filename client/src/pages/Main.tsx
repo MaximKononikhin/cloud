@@ -7,26 +7,23 @@ import ListHeading from '../modules/ListHeading/components';
 
 import MainLayout from '../modules/MainLayout/components';
 import { IState } from '../store';
-import { fetchFiles } from '../store/actions/file';
-import { getAllFiles } from '../store/selectors/file';
+import { fetchFilesAction } from '../store/actions/file';
+import { getAllFiles, getCurrentDir } from '../store/selectors/file';
 
 const fileListStyle = `
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: repeat(5, 170px);
+	grid-gap: 30px;
 `
 
 const Main = () => {
 	const dispatch = useDispatch();
-	const files = useSelector<IState, IFile[]>((state) => getAllFiles(state, {}));
-	console.log(files);
+	const files = useSelector<IState, any[]>((state) => getAllFiles(state, {}));
+	const currentDir = useSelector<IState, IFile>(state => getCurrentDir(state, {}));
 
     useEffect(() => {
-
-        fetchFiles()(dispatch);
-		
-    }, []);
+        fetchFilesAction(currentDir? currentDir._id : undefined)(dispatch);
+    }, [currentDir]);
 
 	const filesContent = files.map((file) => <File key={file._id} file={file} />)
 
