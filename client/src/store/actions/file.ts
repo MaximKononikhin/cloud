@@ -1,8 +1,9 @@
 import { Dispatch } from "redux";
 import { ADD_FILE, DELETE_FILE, POP_DIR_STACK, PUSH_DIR_STACK, SET_FILES_LIST } from "../../common/constants/actions/file";
-import { createFile } from "../../common/services/api/rest/files/createFile";
+import { createDir } from "../../common/services/api/rest/files/createDir";
 import { deleteFile } from "../../common/services/api/rest/files/deleteFile";
 import { getFiles } from "../../common/services/api/rest/files/getFiles";
+import { uploadFile } from "../../common/services/api/rest/files/uploadFile";
 import { IFile } from "../../common/types";
 
 
@@ -16,9 +17,9 @@ export const fetchFilesAction = (dirId?: string) => async (dispatch: Dispatch) =
     }
 };
 
-export const addFileAction = (name: string, type: 'file' | 'dir', parent?: string) => async (dispatch: Dispatch) => {
+export const createDirAction = (name: string, parent?: string) => async (dispatch: Dispatch) => {
     try {
-        const { data } = await createFile({ name, type, parent });
+        const { data } = await createDir({ name, type: 'dir', parent });
         dispatch({ type: ADD_FILE, payload: data });
     }catch (e) {
         console.log(e);
@@ -33,6 +34,22 @@ export const deleteFileAction = (id: string) => async (dispatch: Dispatch) => {
         console.log(e)
     }
 };
+
+export const uploadFileAction = (file: File, dirId?: string) => async (dispatch: Dispatch) => {
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+        if (dirId) {
+            formData.append('parent', dirId)
+        }
+        
+        console.log(formData.getAll('file'));
+        const { data } = await uploadFile(formData);
+        dispatch({ type: ADD_FILE, payload: data });
+    } catch(e) {
+        console.log(e)
+    }
+}
 
 export const pushDirStack = (dir: IFile) => ({ type: PUSH_DIR_STACK, payload: dir });
 

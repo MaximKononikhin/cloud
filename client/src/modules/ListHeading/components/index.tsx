@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentDir } from '../../../store/selectors/file';
 import { IState } from '../../../store';
 import { IFile } from '../../../common/types';
-import { popDirStack } from '../../../store/actions/file';
+import { popDirStack, uploadFileAction } from '../../../store/actions/file';
 
 const ListHeading: React.FC = () => {
     const currentDir: IFile = useSelector<IState, any>((state) => getCurrentDir(state, {}));
@@ -35,6 +35,12 @@ const ListHeading: React.FC = () => {
         ModalService.pushModal(<NewFolderModal handleClose={ModalService.modalDone}/>)
     }
 
+    const fileUploadHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files);
+        files.forEach(file => dispatch(uploadFileAction(file, currentDir?._id)));
+    }
+
+
     return (
         <div css={css(styles.wrapper)}>
             <h2 css={css(styles.foldername)}>{currentDir ? currentDir.name : ''}</h2>
@@ -50,7 +56,7 @@ const ListHeading: React.FC = () => {
                 </div>
                 <div css={css(styles.btnWrapper)}>
                     <Button type="button" ownStyles={styles.btn}>
-                        <input type="file" />
+                        <input type="file" multiple onChange={(event)=> fileUploadHandler(event)} />
                         <img src={addDocIcon} alt="" width="14" height="11" />
                     </Button>
                     <Button type="button" ownStyles={styles.btn} onClick={onClick}>

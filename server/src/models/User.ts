@@ -15,7 +15,7 @@ const UserShema = new Schema({
   firstName: { type: String, required: true },
   secondName: { type: String, required: true },
   password: { type: String, required: true },
-  diskSpace: { type: Number, default: 1024 * 3 * 10 },
+  diskSpace: { type: Number, default: 1024 * 3 * 1000 },
   usedSpace: { type: Number, default: 0 },
   avatar: { type: String },
 })

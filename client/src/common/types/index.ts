@@ -1,4 +1,4 @@
-import { Method } from "axios";
+import { Method, ResponseType } from "axios";
 
 export type IMakeRequest = {
     url: string,
@@ -6,6 +6,7 @@ export type IMakeRequest = {
     headers?: any;
     params?: any;
     data?: any;
+    responseType?: ResponseType
 };
 
 export type IUser = {
@@ -23,7 +24,7 @@ export type IUser = {
 export type IFile = {
     _id: string;
     name: string;
-    type: 'dir' | 'file';
+    type: string;
     accessLink: string;
     size: number;
     path: string;

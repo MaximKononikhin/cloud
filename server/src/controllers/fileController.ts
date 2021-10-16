@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import fs from 'fs';
 import { v4 } from 'uuid';
 require('dotenv').config();
@@ -57,7 +57,7 @@ class FileController {
         const file = req.files.file;
         const parent = await FileModel.findOne({ user: req.user.id, _id: req.body.parent });
         const user = await UserModel.findOne({ _id: req.user.id });
-
+        
         if (user?.usedSpace + file.size > user?.diskSpace!) {
           return res.status(400).json({ message: 'There are no space on the disk'});
         }
@@ -123,13 +123,17 @@ class FileController {
   async deleteFile(req: any, res: Response) {
     try {
       const file = await FileModel.findOne({ _id: req.query.id, user: req.user.id });
+      const user = await UserModel.findOne({ _id: req.user.id });
       if (!file) {
         return res.status(400).json({ message: 'File is not found' })
       }
 
+      user!.usedSpace = user!.usedSpace - file.size;
+
       fileService.deleteFile(file);
 
       await file.remove();
+      await user?.save();
 
       return res.json({ message: 'File was deleted'});
 

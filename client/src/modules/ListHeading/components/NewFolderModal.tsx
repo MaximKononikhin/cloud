@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IFile } from '../../../common/types';
 import { IState } from '../../../store';
-import { addFileAction } from '../../../store/actions/file';
+import { createDirAction } from '../../../store/actions/file';
 import { getCurrentDir } from '../../../store/selectors/file';
 import Button from '../../Button/components';
 import Input from '../../Input/components';
@@ -25,7 +25,7 @@ const NewFolderModal: React.FC<IProps> = ({ handleClose }) => {
     }
 
     const handleClickBtn = async () => {
-        addFileAction(name, 'dir', currentDir ?  currentDir._id : undefined)(dispatch);
+        createDirAction(name, currentDir ?  currentDir._id : undefined)(dispatch);
         handleClose();
     }
 

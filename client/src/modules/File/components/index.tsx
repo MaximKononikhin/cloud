@@ -8,6 +8,7 @@ import trashIcon from '../../../assets/icons/trash.svg';
 import arrowIcon from '../../../assets/icons/arrow.svg';
 import { useDispatch } from 'react-redux';
 import { deleteFileAction, pushDirStack } from '../../../store/actions/file';
+import { downloadFile } from '../../../common/services/api/rest/files/downloadFile';
 
 type IProps = {
     file: IFile
@@ -22,13 +23,29 @@ const File: React.FC<IProps> = ({ file }) => {
     };
 
     const handleFileClick = () => {
-        dispatch(pushDirStack(file));
+        if (file.type === 'dir') {
+            dispatch(pushDirStack(file));
+            return;
+        }
+        return;
+    }
+
+    const handleDownloadFile = async (evt: React.MouseEvent) => {
+        evt.stopPropagation();
+        const { data } = await downloadFile(file._id);
+        const downloadUrl = window.URL.createObjectURL(data);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = file.name;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
     }
 
     return (
         <div css={css(styles.file)} onClick={handleFileClick}>
             {file.type === 'dir' ? 
-                <img src={folderIcon} alt="" width="99" height="69" css={css(styles.iconType)} />
+                <img src={folderIcon} alt="" width="99" height="78" css={css(styles.iconType)} />
                 :
                 <img src={fileIcon} alt="" width="60" height="78" css={css(styles.iconType)} />
             }
@@ -37,10 +54,14 @@ const File: React.FC<IProps> = ({ file }) => {
             </p>
 
             <div>
-                <button css={css(styles.btnStyles, file.type === 'file' && 'margin-right: 10px;')} onClick={handleDelete} >
+                <button css={css(styles.btnStyles, file.type !== 'dir' && 'margin-right: 10px;')} onClick={handleDelete} >
                     <img src={trashIcon} width="14" height="15" alt="" />
                 </button>
-                {file.type === 'file' && <img src={arrowIcon} width="15" height="15" alt="" />}
+                {file.type !== 'dir' && (
+                    <button css={css(styles.btnStyles)} onClick={handleDownloadFile}>
+                        <img src={arrowIcon} width="15" height="15" alt="" />
+                    </button>
+                )}
             </div>
         </div>
     )

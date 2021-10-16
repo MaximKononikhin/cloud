@@ -8,6 +8,7 @@ const makeRequest = ({
     params = {},
     data = {},
     headers = {},
+    responseType = 'json'
 }: IMakeRequest) => {
     return axios({
         baseURL: `${BASE_URL}/api`,
@@ -16,6 +17,7 @@ const makeRequest = ({
         params,
         data,
         headers,
+        responseType,
         withCredentials: true
     })
 };

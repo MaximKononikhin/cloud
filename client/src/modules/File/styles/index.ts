@@ -8,10 +8,6 @@ export const file = `
     background: rgba(255, 255, 255, 0.1);
     border-radius: 25px;
     cursor: pointer;
-
-    :nth-of-type(6) {
-        margin-right: 0;
-    }
 `;
 
 export const iconType = `
@@ -19,12 +15,16 @@ export const iconType = `
 `;
 
 export const name = `
+    width: 100px;
     margin: 0;
     margin-bottom: 13px;
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
     text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     color: #FFFFFF;
 `;
