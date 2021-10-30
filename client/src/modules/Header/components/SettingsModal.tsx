@@ -4,18 +4,15 @@ import { jsx, css } from '@emotion/react';
 import profileIcon from '../../../assets/icons/profileIcon.svg';
 import cameraIcon from '../../../assets/icons/camera.svg';
 
-import * as styles from './styles/SettingsModal';
+import * as styles from '../styles/SettingsModal';
 import { useSession } from '../../../common/services/context/SessionContext';
 import { BASE_URL } from '../../../common/constants';
-import Modal from '../../Modal';
-
-type IProps = {
-    handleClose: () => void;
-}
+import Modal from '../../Modal/components';
+import { ISettingsModalProps } from "../types";
 
 
 
-const SettingsModal: React.FC<IProps> = ({ handleClose }) => {
+const SettingsModal: React.FC<ISettingsModalProps> = ({ handleClose }) => {
     const { user, uploadAvatar } = useSession();
 
     const handleChangeAvatar = async (e: any) => {

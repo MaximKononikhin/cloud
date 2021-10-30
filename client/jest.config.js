@@ -8,4 +8,8 @@ module.exports = {
     testMatch: ['**//__tests__/**/*.ts', '**/?(*.)+(spec|test).[jt]s?(x)'],
     testURL: 'http://localhost',
     setupFilesAfterEnv: [path.resolve(__dirname, './setupTests.js')],
+    transform: {
+        "\\.svg$": "svg-jest",
+        ".(ts|tsx)": "ts-jest"
+    }
 }

@@ -7,15 +7,12 @@ import { createDirAction } from '../../../store/actions/file';
 import { getCurrentDir } from '../../../store/selectors/file';
 import Button from '../../Button/components';
 import Input from '../../Input/components';
-import Modal from '../../Modal';
+import Modal from '../../Modal/components';
 
 import * as styles from '../styles/NewFolderModal';
+import {INewFolderProps} from "../types";
 
-type IProps = {
-    handleClose: () => void;
-}
-
-const NewFolderModal: React.FC<IProps> = ({ handleClose }) => {
+const NewFolderModal: React.FC<INewFolderProps> = ({ handleClose }) => {
     const currentDir: IFile = useSelector<IState, any>((state) => getCurrentDir(state, {}));
     const [name, setName] = useState('');
     const dispatch = useDispatch();

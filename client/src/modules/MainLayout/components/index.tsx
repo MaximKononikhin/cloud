@@ -1,13 +1,9 @@
 import React from 'react';
 import { css } from '@emotion/react';
 
-import * as styles from './styles';
+import * as styles from '../styles';
 import Header from '../../Header/components';
-
-type IProps = {
-    children: React.ReactNode,
-    maxHeight?: number,
-}
+import {IProps} from "../types";
 
 const MainLayout: React.FC<IProps> = ({ children, maxHeight = 641 }) => {
     return (

@@ -1,9 +1,9 @@
 import React, { ReactNode, useRef, useState } from 'react'
 import { jsx, css } from '@emotion/react'
 
-import * as styles from './styles';
+import * as styles from '../styles';
 import profileIcon from '../../../assets/icons/profileIcon.svg';
-import carret from '../../../assets/icons/carret.svg';
+import caret from '../../../assets/icons/carret.svg';
 import { useSession } from '../../../common/services/context/SessionContext';
 import ModalService from '../../../common/services/ModalService';
 import useClickOutside from '../../../common/services/hooks/useClickOutside';
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
                 </span>
                 <img src={user.user.avatar ? `${BASE_URL}/${user.user.avatar}` : profileIcon} width="27" height="27" alt="" css={css(styles.avatar)}/>
                 <button css={css(styles.btn)} onClick={() => setModalOpen(!isModalOpen)}>
-                    <img src={carret} width="6" height="6" alt="" />
+                    <img src={caret} width="6" height="6" alt="" />
                 </button>
                 {isModalOpen && userModal}
             </div>

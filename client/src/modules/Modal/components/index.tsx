@@ -1,15 +1,10 @@
 import React, {ReactNode, useRef} from 'react'
 import { jsx, css } from '@emotion/react';
 
-import * as styles from './styles';
-import cross from '../../assets/icons/cross.svg';
-import useClickOutside from "../../common/services/hooks/useClickOutside";
-
-type IProps = {
-    handleClose: () => void;
-    ownStyles?: string;
-    children: ReactNode | ReactNode[]
-}
+import * as styles from '../styles';
+import cross from '../../../assets/icons/cross.svg';
+import useClickOutside from "../../../common/services/hooks/useClickOutside";
+import {IProps} from "../types";
 
 const Modal: React.FC<IProps> = ({ handleClose, children, ownStyles }) => {
     const modalRef = useRef<HTMLDivElement>(null);

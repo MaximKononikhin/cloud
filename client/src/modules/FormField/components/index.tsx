@@ -2,18 +2,10 @@ import { css } from '@emotion/react';
 import React from 'react';
 import Input from '../../Input/components';
 
-import * as styles from './styles';
+import * as styles from '../styles';
+import {IProps} from "../types";
 
-type IProps = {
-    type: 'text' | 'password',
-    name: string,
-    value: string,
-    label: string,
-    onChange: (e: string | React.ChangeEvent<any>) => void,
-    onBlur?: (e: any) => void,
-    ownStyles?: string,
-    error?: string
-}
+
 
 const FormField: React.FC<IProps> = ({
     name, type, value, onBlur, onChange, label, ownStyles, error

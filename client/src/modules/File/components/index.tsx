@@ -9,10 +9,9 @@ import arrowIcon from '../../../assets/icons/arrow.svg';
 import { useDispatch } from 'react-redux';
 import { deleteFileAction, pushDirStack } from '../../../store/actions/file';
 import { downloadFile } from '../../../common/services/api/rest/files/downloadFile';
+import { IProps } from "../types";
 
-type IProps = {
-    file: IFile
-}
+
 
 const File: React.FC<IProps> = ({ file }) => {
     const dispatch = useDispatch();
@@ -43,8 +42,8 @@ const File: React.FC<IProps> = ({ file }) => {
     }
 
     return (
-        <div css={css(styles.file)} onClick={handleFileClick}>
-            {file.type === 'dir' ? 
+        <div css={css(styles.file)} onClick={handleFileClick} data-testid="file-element">
+            {file.type === 'dir' ?
                 <img src={folderIcon} alt="" width="99" height="78" css={css(styles.iconType)} />
                 :
                 <img src={fileIcon} alt="" width="60" height="78" css={css(styles.iconType)} />

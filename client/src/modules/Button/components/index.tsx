@@ -1,16 +1,10 @@
 import { css } from '@emotion/react';
 import React, { ReactNode } from 'react';
 
-import * as styles from './styles';
+import * as styles from '../styles';
+import {IProps} from "../types";
 
-type IProps = {
-    type: "button" | "submit" | "reset",
-    disabled?: boolean,
-    onClick?: () => void,
-    color?: string,
-    ownStyles?: string;
-    children: ReactNode | ReactNode[];
-}
+
 
 const Button: React.FC<IProps> = ({ color = 'linear-gradient(267.23deg, #FC6076 5.3%, #FF9944 90.07%)', onClick, ownStyles, type, disabled, children }) => {
     return (

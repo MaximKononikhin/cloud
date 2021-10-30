@@ -2,16 +2,9 @@ import { css } from '@emotion/react';
 import React from 'react';
 
 import * as styles from '../styles';
+import {IProps} from "../types";
 
-type IProps = {
-    type: string,
-    name?: string,
-    value: string,
-    onChange: (e: string | React.ChangeEvent<any>) => void,
-    onBlur?: (e: any) => void,
-    ownStyles?: string,
-    error?: string
-}
+
 
 const Input: React.FC<IProps> = ({ name, type, value, onBlur, onChange, ownStyles, error }) => {
     return (
