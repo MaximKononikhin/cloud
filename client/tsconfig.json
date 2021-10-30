@@ -12,6 +12,6 @@
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "typeRoots" : ["node_modules/@types", "./src/types"],
-        "types": ["@emotion/react/types/css-prop"],
+        "types": ["@emotion/react/types/css-prop", "@types/jest", "@testing-library/jest-dom"],
     }
 }
