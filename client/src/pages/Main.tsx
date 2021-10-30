@@ -17,14 +17,7 @@ const fileListStyle = `
 `
 
 const Main = () => {
-	const dispatch = useDispatch();
 	const files = useSelector<IState, any[]>((state) => getAllFiles(state, {}));
-	const currentDir = useSelector<IState, IFile>(state => getCurrentDir(state, {}));
-
-    useEffect(() => {
-        fetchFilesAction(currentDir? currentDir._id : undefined)(dispatch);
-    }, [currentDir]);
-
 	const filesContent = files.map((file) => <File key={file._id} file={file} />)
 
 	return (

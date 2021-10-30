@@ -5,6 +5,7 @@ import { deleteFile } from "../../common/services/api/rest/files/deleteFile";
 import { getFiles } from "../../common/services/api/rest/files/getFiles";
 import { uploadFile } from "../../common/services/api/rest/files/uploadFile";
 import { IFile } from "../../common/types";
+import {searchFile} from "../../common/services/api/rest/files/searchFile";
 
 
 export const fetchFilesAction = (dirId?: string) => async (dispatch: Dispatch) => {
@@ -16,6 +17,15 @@ export const fetchFilesAction = (dirId?: string) => async (dispatch: Dispatch) =
         console.log(e);
     }
 };
+
+export const searchFileAction = (search: string) => async (dispatch: Dispatch) => {
+    try {
+        const { data } = await searchFile(search);
+        dispatch({ type: SET_FILES_LIST, payload: data });
+    } catch (e) {
+        console.log(e);
+    }
+}
 
 export const createDirAction = (name: string, parent?: string) => async (dispatch: Dispatch) => {
     try {

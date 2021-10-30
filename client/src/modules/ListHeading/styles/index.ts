@@ -5,7 +5,7 @@ export const wrapper = `
     margin-bottom: 30px;
 `
 
-export const foldername = `
+export const folderName = `
     font-family: Minsk;
     font-weight: 600;
     font-size: 40px;

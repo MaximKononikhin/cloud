@@ -1,8 +1,16 @@
-export const modal = `
+export const modalOverlay = `
     position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3333;
+    width: 100vw;
+    height: 100vh;
+`
+
+export const modal = `
+    position: absolute;
     top: 40%;
     left: 50%;
-    z-index: 3333;
     transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(214, 214, 214, 0.25);

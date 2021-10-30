@@ -1,5 +1,5 @@
 import { jsx, css } from '@emotion/react';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 
 import Button from '../../Button/components';
@@ -15,11 +15,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentDir } from '../../../store/selectors/file';
 import { IState } from '../../../store';
 import { IFile } from '../../../common/types';
-import { popDirStack, uploadFileAction } from '../../../store/actions/file';
+import {fetchFilesAction, popDirStack, searchFileAction, uploadFileAction} from '../../../store/actions/file';
+import useDebounce from "../../../common/services/hooks/useDebounce";
 
 const ListHeading: React.FC = () => {
     const currentDir: IFile = useSelector<IState, any>((state) => getCurrentDir(state, {}));
     const [search, setSearch] = useState('');
+    const debouncedSearch = useDebounce<string>(search, 500);
 
     const dispatch = useDispatch();
 
@@ -40,10 +42,18 @@ const ListHeading: React.FC = () => {
         files.forEach(file => dispatch(uploadFileAction(file, currentDir?._id)));
     }
 
+    useEffect(() => {
+        if (debouncedSearch.length) {
+            searchFileAction(debouncedSearch)(dispatch);
+            return;
+        }
+        fetchFilesAction(currentDir ? currentDir._id : undefined)(dispatch);
+    }, [debouncedSearch, currentDir]);
+
 
     return (
         <div css={css(styles.wrapper)}>
-            <h2 css={css(styles.foldername)}>{currentDir ? currentDir.name : ''}</h2>
+            <h2 css={css(styles.folderName)}>{currentDir ? currentDir.name : ''}</h2>
             <div css={css(styles.subWrapper)}>
                 <div css={css(styles.leftWrapper)}>
                     <Button type="button" ownStyles={styles.backBtn} onClick={handleBackClick}>
