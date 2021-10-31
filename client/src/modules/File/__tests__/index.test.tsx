@@ -5,8 +5,8 @@ import {setupServer} from 'msw/node'
 import userEvent from "@testing-library/user-event";
 import {IFile} from "../../../common/types";
 import {renderWithRedux, store} from "../../../store";
-import {ADD_FILE, DELETE_FILE} from "../../../common/constants/actions/file";
-import { waitFor} from "@testing-library/react";
+import {ADD_FILE} from "../../../common/constants/actions/file";
+import { waitFor, screen } from "@testing-library/react";
 import {BASE_URL} from "../../../common/constants";
 
 const file: IFile = {
@@ -67,14 +67,17 @@ describe('File component', () => {
     });
 
     it('Click delete button', async () => {
-        const { getByTestId } = renderWithRedux(<File file={file} />);
-        const deleteBtn = getByTestId('delete-btn');
-        expect(deleteBtn).toBeInTheDocument();
         store.dispatch({ type: ADD_FILE, payload: file });
+        let state = store.getState().file.toJS().file;
+        let newFile = state[`${file._id}` as keyof typeof state];
+        const element = renderWithRedux(<File file={newFile} />);
+        const deleteBtn = element.getByTestId('delete-btn');
+        expect(deleteBtn).toBeInTheDocument();
         userEvent.click(deleteBtn);
         await waitFor(() => {
-            const newFileState = store.getState().file.toJS().file;
-            expect(newFileState[`${file._id}` as keyof typeof newFileState]).toBeUndefined()
+            state = store.getState().file.toJS().file;
+            newFile = state[`${file._id}` as keyof typeof state];
+            expect(newFile).toBeUndefined();
         });
     });
 });
