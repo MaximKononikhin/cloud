@@ -1,11 +1,13 @@
 import File from "../components";
 import React from "react";
+import {rest} from 'msw'
+import {setupServer} from 'msw/node'
 import userEvent from "@testing-library/user-event";
 import {IFile} from "../../../common/types";
 import {renderWithRedux, store} from "../../../store";
-import {ADD_FILE} from "../../../common/constants/actions/file";
-import {fireEvent, screen} from "@testing-library/react";
-
+import {ADD_FILE, DELETE_FILE} from "../../../common/constants/actions/file";
+import { waitFor} from "@testing-library/react";
+import {BASE_URL} from "../../../common/constants";
 
 const file: IFile = {
     type: 'file',
@@ -31,6 +33,18 @@ const dir: IFile = {
     user: "1"
 };
 
+const server = setupServer(
+    rest.delete(`${BASE_URL}/api/files`, (req, res, ctx) => {
+        return res(ctx.json({ message: 'File was deleted'}))
+    }),
+);
+
+beforeAll(() => server.listen())
+
+afterEach(() => server.resetHandlers())
+
+afterAll(() => server.close())
+
 describe('File component', () => {
     it('Renders File component', () => {
         const { getByTestId } = renderWithRedux(<File file={dir} />);
@@ -52,17 +66,15 @@ describe('File component', () => {
         expect(getByTestId('download-btn')).toBeInTheDocument();
     });
 
-    it('Click delete button', () => {
+    it('Click delete button', async () => {
         const { getByTestId } = renderWithRedux(<File file={file} />);
         const deleteBtn = getByTestId('delete-btn');
         expect(deleteBtn).toBeInTheDocument();
         store.dispatch({ type: ADD_FILE, payload: file });
-        let fileState = store.getState().file.toJS().file;
-        fireEvent.click(deleteBtn,
-            new MouseEvent('click', {
-            bubbles: true,
-            cancelable: true,
-        }));
-        // expect(fileState[`${file._id}` as keyof typeof fileState]).toBeUndefined();
+        await userEvent.click(deleteBtn);
+        await waitFor(() => {
+            const newFileState = store.getState().file.toJS().file;
+            expect(newFileState[`${file._id}` as keyof typeof newFileState]).toBeUndefined()
+        });
     });
 });

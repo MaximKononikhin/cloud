@@ -17,7 +17,6 @@ const File: React.FC<IProps> = ({ file }) => {
     const dispatch = useDispatch();
 
     const handleDelete = (evt: React.MouseEvent) => {
-        console.log('click delete')
         evt.stopPropagation();
         deleteFileAction(file._id)(dispatch);
     };
