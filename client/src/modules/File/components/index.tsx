@@ -17,6 +17,7 @@ const File: React.FC<IProps> = ({ file }) => {
     const dispatch = useDispatch();
 
     const handleDelete = (evt: React.MouseEvent) => {
+        console.log('click delete')
         evt.stopPropagation();
         deleteFileAction(file._id)(dispatch);
     };
@@ -44,20 +45,20 @@ const File: React.FC<IProps> = ({ file }) => {
     return (
         <div css={css(styles.file)} onClick={handleFileClick} data-testid="file-element">
             {file.type === 'dir' ?
-                <img src={folderIcon} alt="" width="99" height="78" css={css(styles.iconType)} />
+                <img src={folderIcon} alt="folder" width="99" height="78" css={css(styles.iconType)} />
                 :
-                <img src={fileIcon} alt="" width="60" height="78" css={css(styles.iconType)} />
+                <img src={fileIcon} alt="file" width="60" height="78" css={css(styles.iconType)} />
             }
             <p css={css(styles.name)}>
                 {file.name}
             </p>
 
             <div>
-                <button css={css(styles.btnStyles, file.type !== 'dir' && 'margin-right: 10px;')} onClick={handleDelete} >
+                <button css={css(styles.btnStyles, file.type !== 'dir' && 'margin-right: 10px;')} onClick={handleDelete} data-testid="delete-btn">
                     <img src={trashIcon} width="14" height="15" alt="" />
                 </button>
                 {file.type !== 'dir' && (
-                    <button css={css(styles.btnStyles)} onClick={handleDownloadFile}>
+                    <button css={css(styles.btnStyles)} onClick={handleDownloadFile} data-testid="download-btn">
                         <img src={arrowIcon} width="15" height="15" alt="" />
                     </button>
                 )}
