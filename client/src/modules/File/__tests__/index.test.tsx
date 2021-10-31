@@ -71,7 +71,7 @@ describe('File component', () => {
         const deleteBtn = getByTestId('delete-btn');
         expect(deleteBtn).toBeInTheDocument();
         store.dispatch({ type: ADD_FILE, payload: file });
-        await userEvent.click(deleteBtn);
+        userEvent.click(deleteBtn);
         await waitFor(() => {
             const newFileState = store.getState().file.toJS().file;
             expect(newFileState[`${file._id}` as keyof typeof newFileState]).toBeUndefined()
