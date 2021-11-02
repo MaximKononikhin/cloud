@@ -39,11 +39,13 @@ const server = setupServer(
     }),
 );
 
-beforeAll(() => server.listen())
+beforeAll(() => server.listen());
 
-afterEach(() => server.resetHandlers())
+afterEach(() => server.resetHandlers());
 
-afterAll(() => server.close())
+afterAll(() => server.close());
+
+const getFileState = () => store.getState().file.toJS();
 
 describe('File component', () => {
     it('Renders File component', () => {
@@ -68,16 +70,30 @@ describe('File component', () => {
 
     it('Click delete button', async () => {
         store.dispatch({ type: ADD_FILE, payload: file });
-        let state = store.getState().file.toJS().file;
+        let state = getFileState().file;
         let newFile = state[`${file._id}` as keyof typeof state];
+
         const element = renderWithRedux(<File file={newFile} />);
         const deleteBtn = element.getByTestId('delete-btn');
+
         expect(deleteBtn).toBeInTheDocument();
         userEvent.click(deleteBtn);
+
         await waitFor(() => {
-            state = store.getState().file.toJS().file;
+            state = getFileState().file;
             newFile = state[`${file._id}` as keyof typeof state];
             expect(newFile).toBeUndefined();
         });
     });
+
+    it('Click on folder', async () => {
+        let dirStack = getFileState().dirStack as IFile[];
+        const { getByTestId } = renderWithRedux(<File file={dir} />);
+        expect(dirStack.some((item) => item._id === dir._id)).toBeFalsy();
+        userEvent.click(getByTestId('file-element'));
+        dirStack = getFileState().dirStack as IFile[];
+        expect(dirStack.some((item) => item._id === dir._id)).toBeTruthy();
+    });
+
+    // it('Click on download btn', )
 });

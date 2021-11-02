@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
-import React from 'react'
-import { IFile } from '../../../common/types';
+import React from 'react';
 import * as styles from '../styles';
 import folderIcon from '../../../assets/icons/folderIcon.svg';
 import fileIcon from '../../../assets/icons/fileIcon.svg';
@@ -24,9 +23,7 @@ const File: React.FC<IProps> = ({ file }) => {
     const handleFileClick = () => {
         if (file.type === 'dir') {
             dispatch(pushDirStack(file));
-            return;
         }
-        return;
     }
 
     const handleDownloadFile = async (evt: React.MouseEvent) => {
