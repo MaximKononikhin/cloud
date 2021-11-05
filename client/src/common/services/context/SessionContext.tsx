@@ -6,6 +6,7 @@ import { login } from '../api/rest/auth/login';
 import { logout } from '../api/rest/auth/logout';
 import { register } from '../api/rest/auth/registration';
 import { uploadAvatar } from '../api/rest/files/avatar';
+import {render} from "@testing-library/react";
 
 type ILogin = {
     email: string,
@@ -78,6 +79,12 @@ export const SessionProvider = ({ children }: {children: ReactNode}) => {
         <SessionContext.Provider value={value}>
             {!loading && children}
         </SessionContext.Provider>
+    )
+}
+
+export const renderWithSessionContext = (component: JSX.Element, providerProps: Partial<ISessionContext>) => {
+    return render(
+        <SessionContext.Provider value={providerProps}>{component}</SessionContext.Provider>
     )
 }
 

@@ -1,4 +1,4 @@
-import React, {ReactNode, useRef} from 'react'
+import React, { useRef } from 'react'
 import { jsx, css } from '@emotion/react';
 
 import * as styles from '../styles';
@@ -10,10 +10,10 @@ const Modal: React.FC<IProps> = ({ handleClose, children, ownStyles }) => {
     const modalRef = useRef<HTMLDivElement>(null);
     useClickOutside(modalRef, handleClose);
     return (
-        <div css={css(styles.modalOverlay)}>
+        <div css={css(styles.modalOverlay)} data-testid="modal-overlay">
             <div css={css(styles.modal)} ref={modalRef}>
                 <div css={css(styles.wrapper, ownStyles)}>
-                    <button css={css(styles.buttonClose)} onClick={handleClose}>
+                    <button css={css(styles.buttonClose)} onClick={handleClose} data-testid="close-btn">
                         <img src={cross} width="11" height="11" alt="" />
                     </button>
                     {children}

@@ -14,7 +14,6 @@ export type IUser = {
         email: string;
         firstName: string;
         secondName: string;
-        password: string;
         diskSpace: number;
         usedSpace: number;
         avatar: string;

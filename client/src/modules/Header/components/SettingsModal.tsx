@@ -25,11 +25,16 @@ const SettingsModal: React.FC<ISettingsModalProps> = ({ handleClose }) => {
 
     return (
         <Modal handleClose={handleClose}>
-            <div css={css(styles.subwrapper)}>
+            <div css={css(styles.subwrapper)} data-testid="settings-modal">
                 <div css={css(styles.avatarWrapper)}>
-                    <img src={user.user.avatar ? `${BASE_URL}/${user.user.avatar}` : profileIcon} width="110" height="110" alt="" css={css(styles.avatar)} />
+                    {
+                        user.user.avatar ?
+                            <img src={`${BASE_URL}/${user.user.avatar}`} width="110" height="110" alt="user-avatar" css={css(styles.avatar)} />
+                            :
+                            <img src={profileIcon} width="110" height="110" alt="no-avatar" css={css(styles.avatar)} />
+                    }
                     <label css={css(styles.uploadAvatarWrapper)}>
-                        <input type="file" accept="image/*" onChange={handleChangeAvatar} placeholder="Загрузить аватар" />
+                        <input type="file" accept="image/*" onChange={handleChangeAvatar} placeholder="Загрузить аватар" data-testid="settings-modal-input"/>
                         <img src={cameraIcon} width="37" height="37" alt="" />
                     </label>
                 </div>

@@ -15,6 +15,7 @@ const Input: React.FC<IProps> = ({ name, type, value, onBlur, onChange, ownStyle
             onChange={onChange}
             onBlur={onBlur}
             value={value}
+            data-testid="input"
         />
     )
 }

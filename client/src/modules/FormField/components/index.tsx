@@ -11,8 +11,8 @@ const FormField: React.FC<IProps> = ({
     name, type, value, onBlur, onChange, label, ownStyles, error
 }) => {
     return (
-        <label css={css(styles.inputStyles, ownStyles ? ownStyles : '')}>
-            <p>
+        <label css={css(styles.inputStyles, ownStyles ? ownStyles : '')} data-testid="form-field">
+            <p data-testid="form-field-name">
                 {label}
             </p>
             <Input 
@@ -25,7 +25,7 @@ const FormField: React.FC<IProps> = ({
             />
             {error && 
                 (
-                    <span css={css(styles.errorStyle)}>{error}</span>
+                    <span css={css(styles.errorStyle)} data-testid="form-field-error">{error}</span>
                 )
             }
         </label>

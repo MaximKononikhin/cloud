@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import {IFile} from "../../../common/types";
 import {renderWithRedux, store} from "../../../store";
 import {ADD_FILE} from "../../../common/constants/actions/file";
-import { waitFor, screen } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 import {BASE_URL} from "../../../common/constants";
 
 const file: IFile = {
@@ -94,6 +94,4 @@ describe('File component', () => {
         dirStack = getFileState().dirStack as IFile[];
         expect(dirStack.some((item) => item._id === dir._id)).toBeTruthy();
     });
-
-    // it('Click on download btn', )
 });
